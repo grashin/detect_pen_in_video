@@ -20,7 +20,7 @@ def draw_angle(image, angle, center):
     thickness = 2
     cv2.ellipse(image, center, axes, angle_1, startAngle, endAngle, (255, 0, 255), thickness)
 
-input_video = 'Users/grashin/video_detection/'
+input_video = '/Users/grashin/!Github_projects/detect_pen_in_video/video/yellow_pen_1.mp4'
 output_video = 'Users/grashin/video_detection/angle_1.avi'
 
 
