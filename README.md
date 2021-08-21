@@ -12,11 +12,21 @@
 * numpy 
 * opencv
 * yaml
-* imutils
 
 ***Используя коммандную строку:***
+
 `pip install numpy opencv imutils`
 
-Для вопросов пишите на почту <grashin2011@gmail.com>.
+---
+##Использование
+
+
+Image:
+`python src/detect_pen_in_photo.py -i photos/yellow.jpg`
+
+Video:
+`python src/detect_pen_in_photo.py -v video/yellow_pen_1.mp4`
+
+
 
 

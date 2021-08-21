@@ -1,27 +1,20 @@
-from __future__ import print_function
-from imutils.video import VideoStream
 import numpy as np
 import time
 import cv2
 import os
-import imutils
 import math
+import util
 
+import argparse
 
+ap = argparse.ArgumentParser()
+ap.add_argument("-i", "--video", type=str, required=True, help="path to input video")
+ap.add_argument("-o", "--output", type=str, required=False, help="path to output video")
+args = vars(ap.parse_args())
 
-def draw_angle(image, angle, center):
-    height, width = image.shape[0:2]
-    # Ellipse parameters
-    radius = 30
-    axes = (radius, radius)
-    angle_1 = 0
-    startAngle = angle
-    endAngle = 0
-    thickness = 2
-    cv2.ellipse(image, center, axes, angle_1, startAngle, endAngle, (255, 0, 255), thickness)
+input_video = args["video"]
 
-input_video = '/Users/grashin/!Github_projects/detect_pen_in_video/video/yellow_pen_1.mp4'
-output_video = 'Users/grashin/video_detection/angle_1.avi'
+output_video = args["output"] if args["output"] else 'output/output_video.avi'
 
 
 args = vars(ap.parse_args())
@@ -29,19 +22,10 @@ args = vars(ap.parse_args())
 vs = cv2.VideoCapture(input_video)
 writer = None
 (H, W) = (None, None)
-try:
-    prop = cv2.CAP_PROP_FRAME_COUNT
-    total = int(vs.get(prop))
-    print("[INFO] {} total frames in video".format(total))
 
+prop = cv2.CAP_PROP_FRAME_COUNT
+total = int(vs.get(prop))
 
-except:
-    print("[INFO] could not determine # of frames in video")
-    print("[INFO] no approx. completion time can be provided")
-    total = -1
-
-
-k =0
 start = time.time()
 
 yellowLower = (-4, 179, 198)
@@ -51,12 +35,11 @@ while True:
     (grabbed, frame) = vs.read()
     if not grabbed:
         break
-   
 
     if W is None or H is None:
         (H, W) = frame.shape[:2] 
 
-    frame = imutils.resize(frame, width=600)
+    frame = cv2.resize(frame, width=600)
 
 
     # gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
@@ -122,7 +105,7 @@ while True:
         cv2.putText(output, text_2, (10, 50),  cv2.FONT_HERSHEY_SIMPLEX, 0.7,
         (255, 0, 255), 2)
         
-        draw_angle(output, -angle-90, center)
+        util.draw_angle(output, -angle-90, center)
 
     if writer is None:
         fourcc = cv2.VideoWriter_fourcc(*"MJPG")
