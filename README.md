@@ -22,7 +22,7 @@
 
 
 Image:
-`python src/detect_pen_in_photo.py -i photos/yellow.jpg`
+`python src/detect_pen_in_photo.py -i photos/yellow_1.jpg -o output/yellow_1_output.jpg`
 
 Video:
 `python src/detect_pen_in_photo.py -v video/yellow_pen_1.mp4`
